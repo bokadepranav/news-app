@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export class Navbar extends Component {
   render() {
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
-            Navbar
+            NewsMonk
           </a>
           <button
             className="navbar-toggler"
@@ -26,11 +26,15 @@ export class Navbar extends Component {
                   Home
                 </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  Link
-                </a>
-              </li>
+              {this.props.categories.map((category) => {
+                return (
+                  <li className="nav-item" key={category}>
+                    <a className="nav-link" href="/">
+                      {category}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
             <form className="d-flex" role="search">
               <input
@@ -46,8 +50,8 @@ export class Navbar extends Component {
           </div>
         </div>
       </nav>
-    )
+    );
   }
 }
 
-export default Navbar
+export default Navbar;
