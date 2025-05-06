@@ -2,10 +2,11 @@ import React, { Component } from "react";
 
 export class NewsItem extends Component {
   render() {
-    const {title, imgUrl, description, url, author, date} = this.props;
+    const {title, imgUrl, description, url, author, date, source} = this.props;
     return (
       <div>
         <div className="card">
+        <span class="badge text-bg-secondary position-absolute bg-danger" style={{left: "-6px", top: "-6px"}}>{source}</span>
           <img style={{height: "200px"}} src={imgUrl ? imgUrl : "https://static.vecteezy.com/system/resources/previews/035/630/884/non_2x/news-announcer-in-the-studio-cityscape-with-buildings-clouds-sky-sun-journalism-live-report-breaking-hot-news-television-and-radio-casts-concept-illustration-in-flat-style-vector.jpg"} className="card-img-top" alt="unavailable" />
           <div className="card-body">
             <h5 className="card-title">{title.slice(0, 45)}</h5>
