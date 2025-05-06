@@ -14,6 +14,7 @@ function App() {
     "sports",
     "technology",
   ];
+  const pageSize = 10;
   return (
     <>
       <Router>
@@ -26,7 +27,7 @@ function App() {
                 element={
                   <News
                     key={category}
-                    pageSize={10}
+                    pageSize={pageSize}
                     apiKey={apiKey}
                     category={category}
                   />
