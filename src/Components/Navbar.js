@@ -1,13 +1,17 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export class Navbar extends Component {
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   render() {
     return (
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             NewsMonk
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -21,17 +25,17 @@ export class Navbar extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">
-                  Home
-                </a>
-              </li>
               {this.props.categories.map((category) => {
                 return (
                   <li className="nav-item" key={category}>
-                    <a className="nav-link" href="/">
-                      {category}
-                    </a>
+                    <Link
+                      className="nav-link"
+                      to={category === "general" ? "/" : "/" + category}
+                    >
+                      {category === "general"
+                        ? "Home"
+                        : this.capitalize(category)}
+                    </Link>
                   </li>
                 );
               })}
