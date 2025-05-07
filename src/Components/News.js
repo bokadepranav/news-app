@@ -23,11 +23,16 @@ export class News extends Component {
     category: "general",
   };
 
-  async componentDidMount() {
+  /**
+   * 
+   * @param {number} page 
+   */
+  async updateNews(page)
+  {
     this.setState({
       loading: true
     });
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${page}&pageSize=${this.props.pageSize}`;
     const data = await fetch(url);
     const parsedData = await data.json();
     console.log(parsedData);
@@ -35,45 +40,26 @@ export class News extends Component {
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       loading: false,
+      page: page,
     });
+  }
+
+  async componentDidMount() {
+    this.updateNews(this.state.page);
   }
 
   render() {
     const handlePrevClick = async () => {
       if(this.state.page > 1)
       {
-        this.setState({
-          loading: true
-        })
-        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
-        const data = await fetch(url);
-        const parsedData = await data.json();
-        console.log(parsedData);
-        this.setState({
-          articles: parsedData.articles,
-          totalResults: parsedData.totalResults,
-          page: this.state.page - 1,
-          loading: false,
-        });
+        this.updateNews(this.state.page - 1);
       }
     };
 
     const handleNextClick = async () => {
       if(this.state.page < Math.ceil(this.state.totalResults / this.props.pageSize))
       {
-        this.setState({
-          loading: true,
-        })
-        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
-        const data = await fetch(url);
-        const parsedData = await data.json();
-        console.log(parsedData);
-        this.setState({
-          articles: parsedData.articles,
-          totalResults: parsedData.totalResults,
-          page: this.state.page + 1,
-          loading: false,
-        });
+        this.updateNews(this.state.page + 1)
       }
     };
 
