@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import News from "./Components/News";
@@ -15,10 +16,28 @@ function App() {
     "technology",
   ];
   const pageSize = 10;
+
+  const [mode, setMode] = useState("light");
+
+  useEffect(() => {
+    document.body.classList.remove(`bg-${mode === "light" ? "dark" : "light"}`);
+    document.body.classList.add(`bg-${mode}`);
+  }, [mode])
+
+  const modeHandler = () => {
+    if(mode === "light")
+    {
+      setMode("dark");
+    }
+    else{
+      setMode("light")
+    }
+  }
+  
   return (
-    <>
+    <div className={`bg-${mode}`}>
       <Router>
-        <Navbar categories={categories} />
+        <Navbar categories={categories} mode={mode} modeHandler={modeHandler} />
         <Routes>
           {categories.map((category) => {
             return (
@@ -30,6 +49,7 @@ function App() {
                     pageSize={pageSize}
                     apiKey={apiKey}
                     category={category}
+                    mode={mode}
                   />
                 }
               />
@@ -37,7 +57,7 @@ function App() {
           })}
         </Routes>
       </Router>
-    </>
+    </div>
   );
 }
 

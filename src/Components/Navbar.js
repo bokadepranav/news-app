@@ -7,7 +7,7 @@ export class Navbar extends Component {
   }
   render() {
     return (
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom" data-bs-theme={this.props.mode}>
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             NewsMonk
@@ -40,6 +40,18 @@ export class Navbar extends Component {
                 );
               })}
             </ul>
+            <div className="form-check form-switch mx-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="switchCheckDefault"
+                onClick={this.props.modeHandler}
+              />
+              <label className={`form-check-label text-${this.props.mode === "dark" ? "light" : "dark"}`} for="switchCheckDefault">
+                Dark Mode
+              </label>
+            </div>
             <form className="d-flex" role="search">
               <input
                 className="form-control me-2"

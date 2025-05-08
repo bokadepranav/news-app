@@ -65,8 +65,8 @@ export class News extends Component {
 
     return (
       <>
-        <div className="container my-3">
-          <h1 className="text-center">Today's Top Headlines!</h1>
+        <div className={`container py-3 bg-${this.props.mode}`}  style={{marginTop: "56.8px"}}>
+          <h1 className={`text-center text-${this.props.mode === "dark" ? "light" : "dark"}`}>Today's Top Headlines!</h1>
           {this.state.loading && <div className="text-center"><img src={spinner} alt="Loading" /></div>}
           <div className="row">
             {!this.state.loading && this.state.articles.map((element) => {
@@ -80,6 +80,7 @@ export class News extends Component {
                     author={element.author}
                     date={element.publishedAt}
                     source={element.source.name}
+                    mode={this.props.mode}
                   />
                 </div>
               );
@@ -88,12 +89,12 @@ export class News extends Component {
           <div className="d-flex justify-content-evenly">
             <button
               disabled={this.state.page <= 1}
-              className="btn btn-primary"
+              className={`btn btn-${this.props.mode === "light" ? "dark" : "light"}`}
               onClick={handlePrevClick}
             >
               &larr; Prev
             </button>
-            <button disabled={!(this.state.page < Math.ceil(this.state.totalResults / this.props.pageSize))} className="btn btn-primary" onClick={handleNextClick}>
+            <button disabled={!(this.state.page < Math.ceil(this.state.totalResults / this.props.pageSize))} className={`btn btn-${this.props.mode === "light" ? "dark" : "light"}`} onClick={handleNextClick}>
               Next &rarr;
             </button>
           </div>
